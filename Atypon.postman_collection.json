@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "ef420e18-eb1e-4cbb-b916-b7c2cc33596d",
+		"name": "Atypon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "edit book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "popopopo",
+							"type": "text"
+						},
+						{
+							"key": "year",
+							"value": "2525",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "mohammad wawe",
+							"disabled": true
+						},
+						{
+							"key": "year",
+							"value": "1999",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete book",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books/11/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"11",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create book",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							" pm.environment.set(\"RandomYear\", _.random(1900,2021));\r",
+							" \r",
+							" var NewRandomTitle = \"New-Book-Add\"+pm.variables.replaceIn('{{$randomInt}}');\r",
+							" pm.environment.set(\"RandomTitle\",NewRandomTitle);\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Title = pm.variables.replaceIn('{{$randomTitle}}');\r",
+							"//pm.environment.set(\"Random Title\", pm.variables.replaceIn('{{$randomTitle}}'))  \r",
+							"\r",
+							"//Year = pm.variables.replaceIn('{{$randomYear}}');\r",
+							"//pm.environment.set(\"Random Year\", pm.variables.replaceIn('{{$randomYear}}'));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonObject = xml2Json(responseBody);\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "{{RandomTitle}}",
+							"type": "text"
+						},
+						{
+							"key": "year",
+							"value": "{{RandomYear}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/search?searchID=War+and+Peace",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchID",
+							"value": "War+and+Peace"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "RandomYear",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "RandomTitle",
+			"value": "",
+			"disabled": true
+		}
+	]
+}
